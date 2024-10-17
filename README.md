@@ -1,5 +1,15 @@
-# RP2040_Micropython_voltage_control
-This script let you control the voltage (0.85v ~ 1.30v) of any rp2040 based board using Micropython.
+# WARNING:
+Unfinished, Untested, still waiting for my pico. To overclock the rp2350, you have to unlock the voltage control in the first place. This process is not buit-in yet, as I am not sure if the process is reversible. More details on [here](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf#page=460&zoom=100,153,197).
+And I quote:
+```
+UNLOCK: unlocks the VREG control interface after power up
+0 - Locked (default)
+1 - Unlocked
+**It cannot be relocked when it is unlocked.**
+```
+
+# RP2350_Micropython_voltage_control
+This script let you control the voltage (0.85v ~ 1.30v) of any rp2350 based board using Micropython.
 
 # Warning
 Even this script only let you use voltages in a range that is specified by the documentations, there is no guarantee that operating the chip at certain voltage won't damage the board.
