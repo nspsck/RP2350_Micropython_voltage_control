@@ -119,14 +119,32 @@ def set_voltage_bits(volt):
         raise ValueError("Unsupported inputs. Valid inputs has to be close to: 0.85 ~ 1.30, with a 0.05 increment each step. Voltage unchanged.")
 
 
+def enable_voltage_control():
+    try:
+        # 0b0000_0000_0000_0000_0010_0000_0000_0000 = 0x00_00_20_00
+        machine.mem32[VREG_CTRL] = read_mem(VREG_CTRL) | 0x5afe2000 
+        return True
+    except:
+        return False
+
+
+def disable_voltage_control():
+    try:
+        # 0b0000_0000_0000_0000_0010_0000_0000_0000 = 0x00_00_20_00
+        machine.mem32[VREG_CTRL] = (read_mem(VREG_CTRL) - 0x2000) | 0x5afe0000 
+        return True
+    except:
+        return False
+
+
 def set_voltage(volt):
     try:
-        machine.mem32[VREG] = set_voltage_bits(volt)
+        machine.mem32[VREG] = set_voltage_bits(volt) | 0x5afe0000
         return True
     except ValueError as e:
         print("Error: ", str(e))
         return False
-    
+
 
 def test_non_stop(freq):
     if freq >= 1000:
@@ -155,7 +173,7 @@ def test(freq):
         OC.run(freq)
     except ImportError as e:
         print(str(e))
-        print("You can get the test on: https://github.com/nspsck/RP2040_Micropython_voltage_control")
+        print("You can get the test on: https://github.com/nspsck/RP2350_Micropython_voltage_control")
         
 
 def find_valid_clocks(limit):
@@ -164,7 +182,7 @@ def find_valid_clocks(limit):
         OC.find_clock_freq(limit)
     except ImportError as e:
         print(str(e))
-        print("You can get the test on: https://github.com/nspsck/RP2040_Micropython_voltage_control")
+        print("You can get the test on: https://github.com/nspsck/RP2350_Micropython_voltage_control")
         
                 
                 

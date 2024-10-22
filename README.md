@@ -1,6 +1,10 @@
 # WARNING:
-Unfinished, Untested, still waiting for my pico. To overclock the rp2350, you have to unlock the voltage control in the first place. This process is not buit-in yet, as I am not sure if the process is reversible. More details on [here](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf#page=460&zoom=100,153,197).
-And I quote:
+To overclock the rp2350, you have to unlock the voltage control in the first place. To do so:
+```python
+POV.enable_voltage_control()
+```
+
+Even the [documentation](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf#page=460&zoom=100,153,197) clearly states the following:
 ```
 UNLOCK: unlocks the VREG control interface after power up
 0 - Locked (default)
@@ -8,10 +12,17 @@ UNLOCK: unlocks the VREG control interface after power up
 **It cannot be relocked when it is unlocked.**
 ```
 
+I could lock it again.. so.. but your milage may vary. To lock it again:
+```python
+POV.disable_voltage_control()
+```
+
 # RP2350_Micropython_voltage_control
 This script let you control the voltage (0.85v ~ 1.30v) of any rp2350 based board using Micropython.
 
 # Warning
+**This warning is just a theory for rp2040, unsure if it is still true for rp2350.** 
+
 Even this script only let you use voltages in a range that is specified by the documentations, there is no guarantee that operating the chip at certain voltage won't damage the board.
 
 If you wish to operate the chip on a higher clock such as 300+ Mhz, please set the `PICO_FLASH_SPI_CLKDIV` to at least `4`. And this is how you do it:
@@ -30,6 +41,7 @@ Examples:
 1. setting voltage. Note: this chip seems to be temperature sensitive, that means, you can achieve higher frequency if you provide lower temperature.
 ```python
 import POV
+POV.enable_voltage_control()
 POV.set_voltage(1.10)
 """
 Returns:
@@ -82,6 +94,7 @@ POV.test_non_stop(266)
 5. little example on testing the functionality of the built-in flash
 ```python
 import POV, machine
+POV.enable_voltage_control()
 POV.set_voltage(1.30)
 
 machine.freq(312_000_000)
