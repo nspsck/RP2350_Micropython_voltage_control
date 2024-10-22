@@ -4,7 +4,7 @@ To overclock the rp2350, you have to unlock the voltage control in the first pla
 POV.enable_voltage_control()
 ```
 
-Even the [documentation](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf#page=460&zoom=100,153,197) clearly states the following:
+This is a **PERMANENT** operation. The [documentation](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf#page=460&zoom=100,153,197) clearly states the following:
 ```
 UNLOCK: unlocks the VREG control interface after power up
 0 - Locked (default)
@@ -12,10 +12,11 @@ UNLOCK: unlocks the VREG control interface after power up
 **It cannot be relocked when it is unlocked.**
 ```
 
-I could lock it again.. so.. but your milage may vary. To lock it again:
+Even if you lock it again using:
 ```python
 POV.disable_voltage_control()
 ```
+according to the harware designers, [the regulator remains unlocked even though VREG_CTRL.UNLOCK now reads as 0.](https://github.com/raspberrypi/pico-feedback/issues/424#issuecomment-2429674640)
 
 # RP2350_Micropython_voltage_control
 This script let you control the voltage (0.85v ~ 1.30v) of any rp2350 based board using Micropython.
