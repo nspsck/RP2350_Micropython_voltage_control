@@ -60,8 +60,8 @@ _VREG_VOLTAGE_3_15 = const(0b11110)    #< 3_15v
 _VREG_VOLTAGE_3_30 = const(0b11111)    #< 3_30v
 
 # The masks to extract/replace the voltage settings
-_CLEAN_VSEL_VALUE_MASK = const(0xffffff0f)
-_CLEAN_RAMDOM_BITS_MASK = const(0x000000f0)
+_CLEAN_VSEL_VALUE_MASK = const(0xfffffe0f)
+_CLEAN_RAMDOM_BITS_MASK = const(0x000001f0)
 
 
 def read_mem(mem_addr):
