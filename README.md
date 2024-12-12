@@ -18,10 +18,10 @@ POV.disable_voltage_control()
 ```
 according to the harware designers, [the regulator remains unlocked even though VREG_CTRL.UNLOCK now reads as 0.](https://github.com/raspberrypi/pico-feedback/issues/424#issuecomment-2429674640)
 
-Also please note, the 1.30v voltage limit is **NOT** cleared by this operation. If you want to go higher, you can set that voltage register too. It's not provided by this repo, because I do not want to destroy your board. (and mine as well).
+Also please note, the 1.30v voltage limit is **ALSO** cleared by this operation. You are responsible for your own actions.
 
 # RP2350_Micropython_voltage_control
-This script let you control the voltage (0.85v ~ 1.30v) of any rp2350 based board using Micropython.
+This script let you control the voltage (0.85v ~ 3.30v) of any rp2350 based board using Micropython.
 
 # Warning
 **This warning is just a theory for rp2040, unsure if it is still true for rp2350.** 

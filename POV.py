@@ -115,14 +115,62 @@ def set_voltage_bits(volt):
     elif isclose(volt, 1.30):
         return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_1_30)
 
+    elif isclose(volt, 1.35):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_1_35)
+
+    elif isclose(volt, 1.40):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_1_40)
+
+    elif isclose(volt, 1.50):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_1_50)
+
+    elif isclose(volt, 1.60):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_1_60)
+
+    elif isclose(volt, 1.65):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_1_65)
+
+    elif isclose(volt, 1.70):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_1_70)
+
+    elif isclose(volt, 1.80):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_1_80)
+
+    elif isclose(volt, 1.90):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_1_90)
+
+    elif isclose(volt, 2.00):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_2_00)
+
+    elif isclose(volt, 2.35):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_2_35)
+
+    elif isclose(volt, 2.50):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_2_50)
+
+    elif isclose(volt, 2.65):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_2_65)
+
+    elif isclose(volt, 2.80):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_2_80)
+
+    elif isclose(volt, 3.00):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_3_00)
+
+    elif isclose(volt, 3.15):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_3_15)
+
+    elif isclose(volt, 3.30):
+        return clean_vsel_bits() ^ voltage_control_bits(_VREG_VOLTAGE_3_30)
+
     else:
-        raise ValueError("Unsupported inputs. Valid inputs has to be close to: 0.85 ~ 1.30, with a 0.05 increment each step. Voltage unchanged.")
+        raise ValueError("Unsupported inputs. Valid inputs has to be close to: 0.85 ~ 3.30, with a 0.05 increment each step. Voltage unchanged.")
 
 
 def enable_voltage_control():
     try:
         # 0b0000_0000_0000_0000_0010_0000_0000_0000 = 0x00_00_20_00
-        machine.mem32[VREG_CTRL] = read_mem(VREG_CTRL) | 0x5afe2000 
+        machine.mem32[VREG_CTRL] = (read_mem(VREG_CTRL) | 0x5afe2100)
         return True
     except:
         return False
@@ -130,8 +178,8 @@ def enable_voltage_control():
 
 def disable_voltage_control():
     try:
-        # 0b0000_0000_0000_0000_0010_0000_0000_0000 = 0x00_00_20_00
-        machine.mem32[VREG_CTRL] = (read_mem(VREG_CTRL) - 0x2000) | 0x5afe0000 
+        # 0b0000_0000_0000_0000_0010_0000_0000_0000 = 0x00_00_20_80
+        machine.mem32[VREG_CTRL] = (read_mem(VREG_CTRL) - 0x2100) | 0x5afe0000
         return True
     except:
         return False
